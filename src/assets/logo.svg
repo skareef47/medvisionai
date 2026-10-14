@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Neo-brutalist badge background icon -->
+  <rect x="2" y="6" width="52" height="52" rx="4" fill="#1a56db" stroke="#090d16" stroke-width="3"/>
+  <rect x="5" y="9" width="46" height="46" rx="2" fill="#1a56db"/>
+  <!-- Crosshairs / Reticle + Medical Cross / Lens -->
+  <circle cx="28" cy="32" r="14" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="3 3"/>
+  <circle cx="28" cy="32" r="6" fill="#00b4d8" stroke="#ffffff" stroke-width="2"/>
+  <!-- Reticle ticks -->
+  <line x1="28" y1="12" x2="28" y2="18" stroke="#ffffff" stroke-width="3" stroke-linecap="square"/>
+  <line x1="28" y1="46" x2="28" y2="52" stroke="#ffffff" stroke-width="3" stroke-linecap="square"/>
+  <line x1="8" y1="32" x2="14" y2="32" stroke="#ffffff" stroke-width="3" stroke-linecap="square"/>
+  <line x1="42" y1="32" x2="48" y2="32" stroke="#ffffff" stroke-width="3" stroke-linecap="square"/>
+  <!-- Corner optical brackets -->
+  <path d="M12 18 V12 H18" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M44 18 V12 H38" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M12 46 V52 H18" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M44 46 V52 H38" stroke="#ffffff" stroke-width="2.5"/>
+
+  <!-- Brand Typography -->
+  <text x="68" y="34" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="24" fill="#090d16" letter-spacing="-0.5">MedVision<tspan fill="#1a56db">.AI</tspan></text>
+  <rect x="68" y="42" width="195" height="14" rx="2" fill="#090d16"/>
+  <text x="72" y="52.5" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="8.5" fill="#00b4d8" letter-spacing="1.2">CLINICAL DECISION SUPPORT</text>
+</svg>

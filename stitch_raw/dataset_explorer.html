@@ -1,0 +1,718 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MedVision AI — Dataset Explorer &amp; Demo Mode</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#181b25",
+            "inverse-primary": "#b5c4ff",
+            "surface-container-highest": "#dfe2ef",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0fe",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#4cd6fb",
+            "primary-fixed": "#dbe1ff",
+            "outline": "#737686",
+            "primary-container": "#1a56db",
+            "on-error": "#ffffff",
+            "primary": "#003fb1",
+            "surface-variant": "#dfe2ef",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#434654",
+            "on-surface": "#181b25",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#50d9fe",
+            "tertiary-fixed-dim": "#ffb95f",
+            "primary-fixed-dim": "#b5c4ff",
+            "surface-container-low": "#f1f3ff",
+            "on-secondary-fixed-variant": "#004e5f",
+            "surface": "#faf9ff",
+            "on-primary-container": "#d4dcff",
+            "on-error-container": "#93000a",
+            "surface-container-high": "#e5e8f5",
+            "on-primary-fixed": "#00174d",
+            "on-tertiary-fixed-variant": "#653e00",
+            "on-secondary": "#ffffff",
+            "outline-variant": "#c3c5d7",
+            "surface-bright": "#faf9ff",
+            "inverse-surface": "#2c303a",
+            "surface-dim": "#d7d9e7",
+            "on-secondary-container": "#005c70",
+            "secondary-fixed": "#b3ebff",
+            "tertiary": "#694100",
+            "tertiary-fixed": "#ffddb8",
+            "on-tertiary-fixed": "#2a1700",
+            "secondary": "#00677d",
+            "error": "#ba1a1a",
+            "tertiary-container": "#895600",
+            "background": "#faf9ff",
+            "on-secondary-fixed": "#001f27",
+            "surface-container": "#ebedfb",
+            "on-tertiary-container": "#ffd6a8",
+            "surface-tint": "#1353d8",
+            "on-primary-fixed-variant": "#003dab"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "2.5rem",
+            "margin": "1.5rem",
+            "margin-desktop": "2rem",
+            "gutter": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "gutter-desktop": "1.5rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-lg": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "display-lg": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Neo-Brutalist zero-blur tactile shadow utilities matching design tokens */
+    .neo-border {
+      border: 2px solid #090d16;
+    }
+    .neo-border-3 {
+      border: 3px solid #090d16;
+    }
+    .neo-shadow-sm {
+      box-shadow: 2px 2px 0px #090d16;
+    }
+    .neo-shadow {
+      box-shadow: 3px 3px 0px #090d16;
+    }
+    .neo-shadow-md {
+      box-shadow: 4px 4px 0px #090d16;
+    }
+    .neo-shadow-lg {
+      box-shadow: 6px 6px 0px #090d16;
+    }
+    .neo-press {
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+    .neo-press:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0px #090d16;
+    }
+    .neo-press:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #090d16;
+    }
+    /* Material symbols helper */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill-1 {
+      font-variation-settings: 'FILL' 1, 'wght' 600;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed selection:font-bold">
+<!-- ========================================================================= -->
+<!-- TOP NAVIGATION BAR (Exact adherence to Shared Components JSON)           -->
+<!-- ========================================================================= -->
+<header class="w-full border-b-2 border-on-background bg-surface-container-lowest px-margin-desktop py-space-sm flex items-center justify-between sticky top-0 z-50 shadow-[0px_3px_0px_#090d16]">
+<div class="flex items-center gap-space-lg">
+<!-- MedVision AI Brand Logo & Tagline -->
+<div class="flex items-center gap-space-sm">
+<img alt="MedVision AI Brand Logo" class="w-9 h-9 object-contain neo-border rounded-DEFAULT bg-surface-container-lowest p-0.5" src="https://lh3.googleusercontent.com/aida/AEtjO1WsITQw-8_FFtrWaO9pRVKuzO8ojHJElXdV05p2PNimU0DgKm4jjgZMMi67AOk6s59ip6EEgn8nh6SksUzrpJc3qO6ndKdgrFmyK-IEnKK8zSG2grA3jkx_FAwPGU3J0ZLlzLoYNA77I1IJl_knDIDsCf7G1g__Cx_9jCjAaQc7IRGNokuPkkKm7lo8ay-N-ktlOnv0JFdu1216PxIhAJrkgPQh4kDQ_rfDUMJTFig9qUE9lCMWccnRbE8">
+<div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight uppercase leading-none block">MedVision AI</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold tracking-wider uppercase">See Beyond the Scan</span>
+</div>
+</div>
+<!-- Quick Search Ingress on Left -->
+<div class="relative hidden xl:block ml-space-md">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface text-base">search</span>
+<input class="pl-8 pr-3 py-1 bg-surface-container-low neo-border rounded-DEFAULT font-label-sm text-label-sm w-72 focus:outline-none focus:bg-surface-container-lowest focus:border-primary" placeholder="Search cohorts, DICOM UID, or IRB tags..." type="text">
+</div>
+<!-- Navigation Links: Exact strings from JSON, 'Dataset Explorer' set as active -->
+<nav aria-label="Global Clinical Navigation" class="hidden md:flex items-center gap-space-md ml-space-md">
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-1 transition-colors" href="#catalog">Catalog &amp; Home</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-1 transition-colors" href="#clinical-dashboard">Clinical Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-1 transition-colors" href="#diagnostic-workstation">Diagnostic Workstation</a>
+<a class="border-b-2 border-primary text-primary font-bold pb-1 font-label-md text-label-md flex items-center gap-1" href="#dataset-explorer">
+<span class="w-2 h-2 bg-primary rounded-full inline-block animate-pulse"></span>
+          Dataset Explorer
+        </a>
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md py-1 transition-colors" href="#history-log">History Log</a>
+</nav>
+</div>
+<!-- Trailing Actions & Profile as per JSON Specification -->
+<div class="flex items-center gap-space-sm">
+<button class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold neo-border neo-shadow-sm neo-press">
+<span class="material-symbols-outlined text-sm">hub</span>
+        Connect PACS
+      </button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press">
+<span class="material-symbols-outlined text-base">add_to_photos</span>
+        New Scan
+      </button>
+<div class="h-6 w-[2px] bg-on-background mx-1 hidden sm:block"></div>
+<!-- Icon Actions -->
+<button class="p-1.5 bg-surface-container-lowest text-on-surface neo-border neo-shadow-sm neo-press" title="Notifications">
+<span class="material-symbols-outlined text-lg">notifications</span>
+</button>
+<button class="p-1.5 bg-surface-container-lowest text-on-surface neo-border neo-shadow-sm neo-press" title="System Settings">
+<span class="material-symbols-outlined text-lg">settings</span>
+</button>
+<!-- Profile image and role anchor -->
+<div class="flex items-center gap-2 pl-2">
+<div class="w-8 h-8 rounded-DEFAULT bg-[#1a56db] text-on-primary neo-border flex items-center justify-center font-label-md text-label-md font-bold" title="Dr. Aris Vance, Chief Radiologist">
+          AV
+        </div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- SUB-HEADER ANNOUNCEMENT & AUDIT BANNER                                    -->
+<!-- ========================================================================= -->
+<aside class="bg-[#ebedfb] border-b-2 border-on-background px-margin-desktop py-space-xs flex flex-wrap items-center justify-between gap-gutter font-label-sm text-label-sm">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="bg-[#00b4d8] text-on-surface px-1.5 py-0.5 neo-border font-bold text-[9px] uppercase tracking-wider">SECURE AUDIT REPO</span>
+<span class="font-medium text-on-surface-variant font-label-sm text-label-sm">
+        CURATED EVALUATION REPOSITORY: De-identified multi-center cohort studies compliant with HIPAA Safe Harbor and GDPR Article 89 for algorithmic verification. Zero synthetic cases.
+      </span>
+</div>
+<div class="flex items-center gap-space-md text-on-surface-variant ml-auto">
+<span class="inline-flex items-center gap-1 font-semibold text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span>
+        AIR-2024 Node: VERIFIED
+      </span>
+<span class="font-mono text-outline text-[11px]">HASH: 9e4f·77c1·a10b</span>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE LAYOUT (Fluid 16-Column Diagnostic Bento Grid)             -->
+<!-- ========================================================================= -->
+<main class="flex-1 w-full px-margin-desktop py-space-md max-w-[1920px] mx-auto flex flex-col gap-space-md">
+<!-- Screen Title & Demo Workspace Control Strip -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm pb-1 border-b-2 border-on-background">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm bg-primary text-on-primary px-2 py-0.5 uppercase tracking-widest font-bold">Clinical Sandbox</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">PACS Mirror Mode: READ-ONLY</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-background tracking-tight mt-1">
+          Demo Mode &amp; Dataset Explorer
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+          Select and inspect reference DICOM cohorts benchmarked under CE-MDR Class IIa guidelines. Direct instant injection into the Diagnostic Workstation for side-by-side radiologic inference review.
+        </p>
+</div>
+<!-- Quick Repository Telemetry Stats (Monospace Strict Authentic Values) -->
+<div class="flex items-center gap-3">
+<div class="neo-border bg-surface-container-lowest px-3 py-1.5 neo-shadow-sm flex items-center gap-3">
+<div>
+<div class="font-label-sm text-[9px] text-on-surface-variant uppercase tracking-wider">Active Cohorts</div>
+<div class="font-label-lg text-label-lg font-bold text-on-surface font-mono">[0 Verified Benchmarks Loaded]</div>
+</div>
+<div class="w-[1px] h-6 bg-on-background"></div>
+<div>
+<div class="font-label-sm text-[9px] text-on-surface-variant uppercase tracking-wider">De-ID Standard</div>
+<div class="font-label-lg text-label-lg font-bold text-primary font-mono">PS 3.15 / HIPAA</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Filter & Search Toolbar Strip -->
+<section class="neo-border bg-surface-container-lowest p-space-sm neo-shadow flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-sm">
+<!-- Primary Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface text-lg">filter_alt</span>
+<input class="w-full bg-[#f8fafc] neo-border pl-10 pr-4 py-2 font-body-md text-body-md text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:border-primary focus:ring-0 focus:outline-none" placeholder="Filter by anatomical cohort, pathology tag, or acquisition protocol..." type="text" value="">
+</div>
+<!-- Anatomical Modality Selector Pills -->
+<div class="flex flex-wrap items-center gap-1.5 overflow-x-auto py-0.5">
+<button class="px-2.5 py-1.5 bg-primary text-on-primary neo-border font-label-sm text-label-sm font-bold neo-shadow-sm neo-press flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">select_all</span> All Cohorts
+        </button>
+<button class="px-2.5 py-1.5 bg-surface-container-lowest text-on-surface neo-border font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
+          Pulmonology (Chest CT/X-Ray)
+        </button>
+<button class="px-2.5 py-1.5 bg-surface-container-lowest text-on-surface neo-border font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
+          Neuro-Imaging (Brain MRI)
+        </button>
+<button class="px-2.5 py-1.5 bg-surface-container-lowest text-on-surface neo-border font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
+          Nephro-Urology (Renal CT)
+        </button>
+<button class="px-2.5 py-1.5 bg-surface-container-lowest text-on-surface neo-border font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
+          Mammography (DBT)
+        </button>
+<button class="px-2.5 py-1.5 bg-surface-container-lowest text-on-surface neo-border font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
+          Abdominal (Multiphasic)
+        </button>
+</div>
+<div class="hidden xl:block w-[2px] h-8 bg-on-background"></div>
+<!-- Anonymization Strict Checkbox Filter Badges -->
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-[9px] uppercase tracking-wider text-on-surface-variant font-bold hidden 2xl:inline">Compliance:</span>
+<label class="inline-flex items-center gap-1.5 bg-[#f1f3ff] px-2 py-1 neo-border text-label-sm font-label-sm cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 neo-border text-primary rounded-none focus:ring-0" type="checkbox">
+<span class="font-mono text-on-surface font-semibold text-[11px]">HIPAA De-Identified</span>
+</label>
+<label class="inline-flex items-center gap-1.5 bg-[#f1f3ff] px-2 py-1 neo-border text-label-sm font-label-sm cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 neo-border text-primary rounded-none focus:ring-0" type="checkbox">
+<span class="font-mono text-on-surface font-semibold text-[11px]">Pixel Scrubbed</span>
+</label>
+<label class="inline-flex items-center gap-1.5 bg-[#f1f3ff] px-2 py-1 neo-border text-label-sm font-label-sm cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 neo-border text-primary rounded-none focus:ring-0" type="checkbox">
+<span class="font-mono text-on-surface font-semibold text-[11px]">DICOM PS 3.15 Clean</span>
+</label>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- 2-COLUMN VIEW: Primary Cohort Grid (Left) + Technical Inspector (Right)-->
+<!-- ===================================================================== -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT: Benchmark Study Cards Grid (8 Columns on desktop) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Study Cohort #01: Thoracic Acute Triage -->
+<article class="neo-border bg-surface-container-lowest neo-shadow-md p-space-md relative border-l-8 border-l-primary flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-2 border-b-2 border-on-background pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="bg-[#090d16] text-[#ffffff] font-label-sm text-label-sm px-2 py-0.5 font-bold tracking-wider uppercase">Cohort #01</span>
+<span class="bg-[#00b4d8] text-on-surface font-label-sm text-label-sm px-2 py-0.5 neo-border font-bold">NLST / COVID-RAD</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">IRB Protocol #2024-082</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 font-mono"><span class="material-symbols-outlined text-sm text-outline">pending</span>[IRB Protocol Specification — Awaiting Ingestion]</div>
+</div>
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
+                Thoracic Acute Triage Cohort (NLST / COVID-RAD)
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Multi-scanner non-contrast helical thoracic scans curated for acute respiratory distress, alveolar consolidation density, and peripheral opacity boundary identification.
+              </p>
+<!-- Specifications Monospace Key-Values -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 mt-3 pt-3 border-t border-outline-variant font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Modality &amp; Matrix:</span>
+<span class="font-bold text-on-surface font-mono">Low-Dose Chest CT (512×512×240 slices)</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Data Standard:</span>
+<span class="font-bold text-on-surface font-mono">Lossless DICOM Part 10 Native, 16-bit Grayscale</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Target Pathologies:</span>
+<span class="font-bold text-error font-mono">Ground Glass Opacities, Consolidation, Pleural Effusions</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Cohort Source:</span>
+<span class="font-bold text-on-surface font-mono">Academic Medical Center Consortium</span>
+</div>
+</div>
+</div>
+<!-- Viewport Snapshot / DICOM Thumbnail Preview Container (Pure neo-brutalist styling) -->
+<div class="w-full md:w-44 flex flex-col gap-1.5 flex-shrink-0">
+<div class="h-32 bg-[#000000] neo-border relative overflow-hidden flex items-center justify-center p-2">
+<!-- Monospace HUD Overlay simulating clinical scan preview -->
+<div class="absolute top-1 left-1.5 font-label-sm text-[9px] text-[#00b4d8] font-mono leading-none">
+                  KV: 120 / MA: 80<br>THICK: 1.25mm
+                </div>
+<div class="absolute bottom-1 right-1.5 font-label-sm text-[9px] text-surface-container-lowest font-mono leading-none">
+                  W: 1500 L: -600
+                </div>
+<!-- Stylized Crosshair Instrument -->
+<div class="w-24 h-24 rounded-full border border-dashed border-[#00b4d8]/40 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full border border-[#00b4d8]/60 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#00b4d8] text-2xl">vital_signs</span>
+</div>
+</div>
+</div>
+<span class="font-label-sm text-[10px] text-center text-on-surface-variant font-mono">Series UID: 1.2.840.113619...</span>
+</div>
+</div>
+<!-- Bottom Action Buttons: Workstation Launch & Manifest -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t-2 border-on-background mt-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">B30f medium smooth</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">0.625mm Spacing</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                View DICOM Manifest
+              </button>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">clinical_notes</span>
+                Load into Diagnostic Workstation
+              </button>
+</div>
+</div>
+</article>
+<!-- Study Cohort #02: Cranial Ischemic Stroke -->
+<article class="neo-border bg-surface-container-lowest neo-shadow-md p-space-md relative border-l-8 border-l-[#00677d] flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-2 border-b-2 border-on-background pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="bg-[#090d16] text-[#ffffff] font-label-sm text-label-sm px-2 py-0.5 font-bold tracking-wider uppercase">Cohort #02</span>
+<span class="bg-[#50d9fe] text-on-surface font-label-sm text-label-sm px-2 py-0.5 neo-border font-bold">NEURO-PENUMBRA</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">IRB Protocol #2023-119</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 font-mono"><span class="material-symbols-outlined text-sm text-outline">pending</span>[IRB Protocol Specification — Awaiting Ingestion]</div>
+</div>
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
+                Cranial Ischemic Stroke &amp; Penumbra Volumetrics
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Multi-sequence brain magnetic resonance series for hyperacute stroke evaluation, ischemic core demarcations, and rapid penumbral collateral mismatch scoring.
+              </p>
+<!-- Specifications Monospace Key-Values -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 mt-3 pt-3 border-t border-outline-variant font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Modality:</span>
+<span class="font-bold text-on-surface font-mono">Volumetric Brain MRI (DWI / FLAIR / T2-GRE)</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Data Standard:</span>
+<span class="font-bold text-on-surface font-mono">NIfTI / DICOM Enhanced MR Objects</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Target Pathologies:</span>
+<span class="font-bold text-error font-mono">Early MCA territory infarct core, perfusion mismatch</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Field Strength:</span>
+<span class="font-bold text-on-surface font-mono">3.0 Tesla High-Field Superconducting</span>
+</div>
+</div>
+</div>
+<!-- Viewport Snapshot / MR Preview Container -->
+<div class="w-full md:w-44 flex flex-col gap-1.5 flex-shrink-0">
+<div class="h-32 bg-[#000000] neo-border relative overflow-hidden flex items-center justify-center p-2">
+<div class="absolute top-1 left-1.5 font-label-sm text-[9px] text-[#50d9fe] font-mono leading-none">
+                  TR: 4800ms / TE: 92ms<br>FOV: 230mm
+                </div>
+<div class="absolute bottom-1 right-1.5 font-label-sm text-[9px] text-surface-container-lowest font-mono leading-none">
+                  B-VALUE: 1000
+                </div>
+<div class="w-20 h-20 border border-[#50d9fe] rounded-DEFAULT flex items-center justify-center bg-[#090d16]/80">
+<span class="material-symbols-outlined text-[#50d9fe] text-3xl">neurology</span>
+</div>
+</div>
+<span class="font-label-sm text-[10px] text-center text-on-surface-variant font-mono">MR Multi-Frame Enhanced</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t-2 border-on-background mt-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">B-Vector Normalized</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">Co-registered ADC</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                View DICOM Manifest
+              </button>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">clinical_notes</span>
+                Load into Diagnostic Workstation
+              </button>
+</div>
+</div>
+</article>
+<!-- Study Cohort #03: Renal Cortical Lesion & Calculi Evaluation -->
+<article class="neo-border bg-surface-container-lowest neo-shadow-md p-space-md relative border-l-8 border-l-[#895600] flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-2 border-b-2 border-on-background pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="bg-[#090d16] text-[#ffffff] font-label-sm text-label-sm px-2 py-0.5 font-bold tracking-wider uppercase">Cohort #03</span>
+<span class="bg-[#ffddb8] text-on-surface font-label-sm text-label-sm px-2 py-0.5 neo-border font-bold">NEPHRO-PHASE</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">IRB Protocol #2024-041</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 font-mono"><span class="material-symbols-outlined text-sm text-outline">pending</span>[IRB Protocol Specification — Awaiting Ingestion]</div>
+</div>
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
+                Renal Cortical Lesion &amp; Calculi Evaluation
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Multiphasic contrast abdominal acquisitions capturing non-contrast, corticomedullary, nephrographic, and excretory phases for solid lesion characterization.
+              </p>
+<!-- Specifications Monospace Key-Values -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 mt-3 pt-3 border-t border-outline-variant font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Modality:</span>
+<span class="font-bold text-on-surface font-mono">Quad-Phase Contrast-Enhanced Abdominal CT</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Data Standard:</span>
+<span class="font-bold text-on-surface font-mono">DICOM PS 3.10 Secondary Capture Validated</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Target Pathologies:</span>
+<span class="font-bold text-error font-mono">Renal cell mass margins, Bosniak category classification</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Temporal Phasing:</span>
+<span class="font-bold text-on-surface font-mono">Unenhanced, 35s, 90s, 10min Delay</span>
+</div>
+</div>
+</div>
+<!-- Viewport Snapshot / CT Preview Container -->
+<div class="w-full md:w-44 flex flex-col gap-1.5 flex-shrink-0">
+<div class="h-32 bg-[#000000] neo-border relative overflow-hidden flex items-center justify-center p-2">
+<div class="absolute top-1 left-1.5 font-label-sm text-[9px] text-[#ffddb8] font-mono leading-none">
+                  PHASE: NEPHRO<br>DELAY: 85s
+                </div>
+<div class="absolute bottom-1 right-1.5 font-label-sm text-[9px] text-surface-container-lowest font-mono leading-none">
+                  HU: +142.4
+                </div>
+<div class="w-20 h-20 border border-[#ffb95f] flex items-center justify-center bg-[#090d16]">
+<span class="material-symbols-outlined text-[#ffb95f] text-3xl">water_damage</span>
+</div>
+</div>
+<span class="font-label-sm text-[10px] text-center text-on-surface-variant font-mono">4-Series Dynamic Set</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t-2 border-on-background mt-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">Omnipaque 350mgI/mL</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">HU Calibrated</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                View DICOM Manifest
+              </button>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">clinical_notes</span>
+                Load into Diagnostic Workstation
+              </button>
+</div>
+</div>
+</article>
+<!-- Study Cohort #04: Digital Breast Tomosynthesis (DBT) -->
+<article class="neo-border bg-surface-container-lowest neo-shadow-md p-space-md relative border-l-8 border-l-[#ba1a1a] flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-2 border-b-2 border-on-background pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="bg-[#090d16] text-[#ffffff] font-label-sm text-label-sm px-2 py-0.5 font-bold tracking-wider uppercase">Cohort #04</span>
+<span class="bg-[#ffdad6] text-on-error-container font-label-sm text-label-sm px-2 py-0.5 neo-border font-bold">MAMMO-TOMO</span>
+<span class="font-label-sm text-label-sm text-error font-semibold">IRB Protocol #2023-311</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 font-mono"><span class="material-symbols-outlined text-sm text-outline">pending</span>[IRB Protocol Specification — Awaiting Ingestion]</div>
+</div>
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
+                Digital Breast Tomosynthesis (DBT) Microcalcifications
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Sub-millimeter reconstruction projection slices for architectural parenchymal distortion analysis, pleomorphic cluster detection, and synthetic 2D correlation.
+              </p>
+<!-- Specifications Monospace Key-Values -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 mt-3 pt-3 border-t border-outline-variant font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Modality:</span>
+<span class="font-bold text-on-surface font-mono">High-Resolution 2D/3D DBT Projection</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Data Standard:</span>
+<span class="font-bold text-on-surface font-mono">Breast Tomosynthesis Image IOD</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Target Pathologies:</span>
+<span class="font-bold text-error font-mono">Architectural distortions, BI-RADS Category 4/5 suspicious clusters</span>
+</div>
+<div>
+<span class="text-on-surface-variant uppercase text-[10px] block">Projection Count:</span>
+<span class="font-bold text-on-surface font-mono">15 Projection Angles / 1.0mm Reconstructed</span>
+</div>
+</div>
+</div>
+<!-- Viewport Snapshot / DBT Preview Container -->
+<div class="w-full md:w-44 flex flex-col gap-1.5 flex-shrink-0">
+<div class="h-32 bg-[#000000] neo-border relative overflow-hidden flex items-center justify-center p-2">
+<div class="absolute top-1 left-1.5 font-label-sm text-[9px] text-secondary-container font-mono leading-none">
+                  VIEW: L-MLO<br>DAP: 1.48 mGy
+                </div>
+<div class="absolute bottom-1 right-1.5 font-label-sm text-[9px] text-surface-container-lowest font-mono leading-none">
+                  SLICES: 58
+                </div>
+<div class="w-20 h-20 border border-error/50 rounded-DEFAULT flex items-center justify-center bg-[#090d16]">
+<span class="material-symbols-outlined text-error text-3xl">lens_blur</span>
+</div>
+</div>
+<span class="font-label-sm text-[10px] text-center text-on-surface-variant font-mono">IOD Standard 1.2.840...</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t-2 border-on-background mt-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">B-3D Multi-Slice</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-[#dfe2ef] neo-border font-mono font-medium">Lossless JPEG-LS</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">receipt_long</span>
+                View DICOM Manifest
+              </button>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">clinical_notes</span>
+                Load into Diagnostic Workstation
+              </button>
+</div>
+</div>
+</article>
+</div>
+<!-- RIGHT: Technical Detail Inspector Drawer (4 Columns on desktop) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md sticky top-20">
+<!-- Active Study Inspector Panel -->
+<div class="neo-border bg-surface-container-lowest p-space-md neo-shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between border-b-2 border-on-background pb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-xl">biotech</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">DICOM Inspector</h3>
+</div>
+<span class="font-label-sm text-label-sm bg-[#00b4d8] text-on-surface px-2 py-0.5 neo-border font-bold">INSPECTOR STANDBY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Technical calibration header of the currently highlighted cohort for algorithmic parity testing.
+          </p>
+<!-- Monospace Technical Ledger / Key-Value Attributes -->
+<div class="neo-border bg-[#f1f3ff] p-space-sm flex flex-col gap-2 font-mono text-label-sm"><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Selected Study:</span><span class="font-bold text-on-surface">[No Study Selected]</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Slice Spacing:</span><span class="font-bold text-outline">--</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Reconstruction Kernel:</span><span class="font-bold text-outline">[Pending Selection]</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Window/Level Default:</span><span class="font-bold text-outline">[Uncalibrated]</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Pixel Dimensions:</span><span class="font-bold text-outline">-- x -- x --</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Photometric Interp:</span><span class="font-bold text-outline">--</span></div><div class="flex justify-between items-center border-b border-outline-variant/60 pb-1"><span class="text-on-surface-variant">Bits Stored / Allocated:</span><span class="font-bold text-outline">-- / --</span></div><div class="flex flex-col gap-0.5 pt-0.5"><span class="text-on-surface-variant text-[10px] uppercase font-bold">SHA-256 Manifest Checksum:</span><span class="text-[10px] break-all bg-surface-container-lowest neo-border p-1 text-outline font-semibold select-all">[Awaiting Authenticated File Ingestion]</span></div></div>
+<!-- Direct Ingestion Action Strip -->
+<div class="flex flex-col gap-2 pt-1">
+<button disabled="" class="w-full py-2 bg-surface-container-high text-on-surface-variant font-label-md text-label-md font-bold neo-border cursor-not-allowed flex items-center justify-center gap-2"><span class="material-symbols-outlined text-base">desktop_windows</span>[Select Cohort or Ingest DICOM to Mount]</button>
+<button class="w-full py-2 bg-surface-container-lowest text-on-surface font-label-md text-label-md font-bold neo-border neo-shadow-sm neo-press flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">download</span>
+              Export Anonymized DICOMDIR
+            </button>
+</div>
+</div>
+<!-- Custom Study Upload Dropzone Card (Strictly Styled Neo-Brutalist) -->
+<div class="neo-border bg-surface-container-lowest p-space-md neo-shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between border-b-2 border-on-background pb-2">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">External Study Drop</h4>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-[#f1f3ff] neo-border font-mono text-[10px]">Client-Side Only</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Ingest local DICOM studies for offline evaluation. Scans are de-identified locally in memory before rendering.
+          </p>
+<!-- DICOM Dropzone dashed frame -->
+<div class="border-2 border-dashed border-on-background bg-[#f8fafc] p-space-md flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-4xl text-primary mb-1">upload_file</span>
+<div class="font-label-md text-label-md font-bold text-on-surface">Drag &amp; Drop DICOM Study</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono mt-0.5">.DCM · .NIFTI · DICOMDIR</div>
+<div class="mt-2 text-[10px] font-mono text-outline">Zero server transmission in Sandbox Mode</div>
+</div>
+</div>
+<!-- Regulatory & Integrity Protocol Box -->
+<div class="neo-border bg-[#ebedfb] p-space-sm neo-shadow-sm flex items-start gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl flex-shrink-0 mt-0.5">verified</span>
+<div class="font-body-sm text-body-sm">
+<span class="font-bold block font-label-sm text-label-sm uppercase tracking-wider text-primary">Zero-Synthetic Policy</span>
+            Every dataset corresponds to actual institutional imaging series vetted by board-certified radiologists. No generative diffusion or synthesized pixels are permitted in benchmark sets.
+          </div>
+</div>
+</aside>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- FOOTER (Exact adherence to Shared Components JSON)                       -->
+<!-- ========================================================================= -->
+<footer class="w-full border-t-2 border-on-background bg-surface-container-low px-margin-desktop py-space-md flex flex-col md:flex-row items-center justify-between gap-gutter mt-auto">
+<!-- Brand Logo and Regulatory Clearance Text -->
+<div class="flex flex-col md:flex-row items-start md:items-center gap-space-md">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface uppercase tracking-tight">
+        MedVision AI
+      </div>
+<div class="w-[2px] h-4 bg-on-background hidden md:block"></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-mono text-[11px] leading-tight max-w-xl">
+        © 2025 MedVision AI Systems Inc. Validated CE-MDR Class IIa / FDA SaMD 510(k) Cleared. Engine Node v4.2.0-STABLE.
+      </p>
+</div>
+<!-- Links Specified in Shared Components JSON: Exact casing preserved -->
+<nav aria-label="Regulatory Verification Links" class="flex flex-wrap items-center gap-space-md">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:underline transition-colors" href="#regulatory-dossier">
+        Regulatory Dossier
+      </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:underline transition-colors" href="#pacs-telemetry-log">
+        PACS Telemetry Log
+      </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:underline transition-colors" href="#dicom-conformance-manifest">
+        DICOM Conformance Manifest
+      </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:underline transition-colors" href="#hipaa-gdpr-attestation">
+        HIPAA/GDPR Attestation
+      </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:underline transition-colors" href="#audit-ledger">
+        Audit Ledger
+      </a>
+</nav>
+</footer>
+<!-- Optional Micro-interaction script for tactile feedback & inspection selection -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Allow dynamic selection feedback between study cards and the inspector drawer
+      const studyCards = document.querySelectorAll('article');
+      studyCards.forEach((card, index) => {
+        card.addEventListener('click', (e) => {
+          // Ignore clicks on buttons to preserve action semantics
+          if (e.target.closest('button')) return;
+          studyCards.forEach(c => c.classList.remove('ring-2', 'ring-primary'));
+          card.classList.add('ring-2', 'ring-primary');
+        });
+      });
+    });
+  </script>
+
+
+</body></html>
